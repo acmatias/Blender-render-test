@@ -91,6 +91,14 @@ gui.add(directionalLight.position, 'y').min(-5).max(5).step(0.001).name('lightY'
 gui.add(directionalLight.position, 'z').min(-5).max(5).step(0.001).name('lightZ')
 gui.add(directionalLight.shadow, 'normalBias').min(0).max(0.1).step(0.0001)
 
+const spotLight = new THREE.PointLight('#ffffff', 10)
+spotLight.position.set(0, 1.2, 0.6)
+gui.add(spotLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
+gui.add(spotLight.position, 'x').min(-5).max(5).step(0.001).name('lightX')
+gui.add(spotLight.position, 'y').min(-5).max(5).step(0.001).name('lightY')
+gui.add(spotLight.position, 'z').min(-5).max(5).step(0.001).name('lightZ')
+scene.add(spotLight)
+
 /**
  * Sizes
  */
