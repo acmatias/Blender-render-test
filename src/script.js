@@ -16,6 +16,7 @@ const texture = new THREE.TextureLoader().load('textures/maps/aurora.jpg')
 // Debug
 const gui = new dat.GUI({ width: 400 })
 const debugObject = {}
+gui.show(false)
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -41,15 +42,15 @@ const updateAllMaterials = () => {
  * Environment Map
  */
 const environmentMap = cubeTextureLoader.load([
-    '/textures/environmentMaps/4/px.png',
-    '/textures/environmentMaps/4/nx.png',
-    '/textures/environmentMaps/4/py.png',
-    '/textures/environmentMaps/4/ny.png',
-    '/textures/environmentMaps/4/pz.png',
-    '/textures/environmentMaps/4/nz.png',
+    '/textures/environmentMaps/6/px.png',
+    '/textures/environmentMaps/6/nx.png',
+    '/textures/environmentMaps/6/py.png',
+    '/textures/environmentMaps/6/ny.png',
+    '/textures/environmentMaps/6/pz.png',
+    '/textures/environmentMaps/6/nz.png',
 ])
 environmentMap.encoding = THREE.sRGBEncoding
-scene.background = texture
+scene.background = environmentMap
 scene.environment = environmentMap
 
 debugObject.envMapIntensity = 2.5
@@ -58,18 +59,21 @@ gui.add(debugObject, 'envMapIntensity').min(0).max(10).step(0.001).onChange(upda
 /**
  * Models
  */
-gltfLoader.load('/models/boat.glb', (gltf) => {
-    // gltf.scene.scale.set(0.3, 0.3, 0.3)
-    gltf.scene.position.set(-3.5, -2, 0)
-    gltf.scene.rotation.y = 1.4
-    scene.add(gltf.scene)
+// gltfLoader.load('/models/boat.glb', (gltf) => {
+//     // gltf.scene.scale.set(0.3, 0.3, 0.3)
+//     gltf.scene.position.set(-3.5, -2, 0)
+//     gltf.scene.rotation.y = 1.4
+//     scene.add(gltf.scene)
+//     console.log('====================================')
+//     console.log(gltf.scene)
+//     console.log('====================================')
 
-    gui.add(gltf.scene.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001).name('rotation')
-    gui.add(gltf.scene.position, 'x').min(-5).max(5).step(0.001).name('posX')
-    gui.add(gltf.scene.position, 'y').min(-5).max(5).step(0.001).name('posY')
-    gui.add(gltf.scene.position, 'z').min(-5).max(5).step(0.001).name('posZ')
-    updateAllMaterials()
-})
+//     gui.add(gltf.scene.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001).name('rotation')
+//     gui.add(gltf.scene.position, 'x').min(-5).max(5).step(0.001).name('posX')
+//     gui.add(gltf.scene.position, 'y').min(-5).max(5).step(0.001).name('posY')
+//     gui.add(gltf.scene.position, 'z').min(-5).max(5).step(0.001).name('posZ')
+//     updateAllMaterials()
+// })
 
 /**
  * Lights
@@ -145,7 +149,7 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
-renderer.toneMapping = THREE.CineonToneMapping
+renderer.toneMapping = THREE.NoToneMapping
 renderer.toneMappingExposure = 0.3
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFShadowMap
