@@ -41,7 +41,7 @@ const updateAllMaterials = () => {
 /**
  * Environment Map
  */
-const house1 = cubeTextureLoader.load([
+const room1 = cubeTextureLoader.load([
     '/textures/environmentMaps/6/px.png',
     '/textures/environmentMaps/6/nx.png',
     '/textures/environmentMaps/6/py.png',
@@ -49,7 +49,7 @@ const house1 = cubeTextureLoader.load([
     '/textures/environmentMaps/6/pz.png',
     '/textures/environmentMaps/6/nz.png',
 ])
-const house2 = cubeTextureLoader.load([
+const room2 = cubeTextureLoader.load([
     '/textures/environmentMaps/5/px.png',
     '/textures/environmentMaps/5/nx.png',
     '/textures/environmentMaps/5/py.png',
@@ -57,7 +57,7 @@ const house2 = cubeTextureLoader.load([
     '/textures/environmentMaps/5/pz.png',
     '/textures/environmentMaps/5/nz.png',
 ])
-const house3 = cubeTextureLoader.load([
+const room3 = cubeTextureLoader.load([
     '/textures/environmentMaps/4/px.png',
     '/textures/environmentMaps/4/nx.png',
     '/textures/environmentMaps/4/py.png',
@@ -65,15 +65,25 @@ const house3 = cubeTextureLoader.load([
     '/textures/environmentMaps/4/pz.png',
     '/textures/environmentMaps/4/nz.png',
 ])
-house1.encoding = THREE.sRGBEncoding
-house2.encoding = THREE.sRGBEncoding
-house3.encoding = THREE.sRGBEncoding
-scene.background = house1
+const room4 = cubeTextureLoader.load([
+    '/textures/environmentMaps/1/px.jpg',
+    '/textures/environmentMaps/1/nx.jpg',
+    '/textures/environmentMaps/1/py.jpg',
+    '/textures/environmentMaps/1/ny.jpg',
+    '/textures/environmentMaps/1/pz.jpg',
+    '/textures/environmentMaps/1/nz.jpg',
+])
+room1.encoding = THREE.sRGBEncoding
+room2.encoding = THREE.sRGBEncoding
+room3.encoding = THREE.sRGBEncoding
+room4.encoding = THREE.sRGBEncoding
+scene.background = room1
 
 gui.add(scene, 'background', {
-    house1,
-    house2,
-    house3,
+    room1,
+    room2,
+    room3,
+    outside: room4,
 })
 
 /**
