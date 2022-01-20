@@ -16,7 +16,7 @@ const texture = new THREE.TextureLoader().load('textures/maps/aurora.jpg')
 // Debug
 const gui = new dat.GUI({ width: 400 })
 const debugObject = {}
-gui.show(false)
+// gui.show(false)
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -41,7 +41,7 @@ const updateAllMaterials = () => {
 /**
  * Environment Map
  */
-const environmentMap = cubeTextureLoader.load([
+const house1 = cubeTextureLoader.load([
     '/textures/environmentMaps/6/px.png',
     '/textures/environmentMaps/6/nx.png',
     '/textures/environmentMaps/6/py.png',
@@ -49,59 +49,49 @@ const environmentMap = cubeTextureLoader.load([
     '/textures/environmentMaps/6/pz.png',
     '/textures/environmentMaps/6/nz.png',
 ])
-environmentMap.encoding = THREE.sRGBEncoding
-scene.background = environmentMap
-scene.environment = environmentMap
+const house2 = cubeTextureLoader.load([
+    '/textures/environmentMaps/5/px.png',
+    '/textures/environmentMaps/5/nx.png',
+    '/textures/environmentMaps/5/py.png',
+    '/textures/environmentMaps/5/ny.png',
+    '/textures/environmentMaps/5/pz.png',
+    '/textures/environmentMaps/5/nz.png',
+])
+const house3 = cubeTextureLoader.load([
+    '/textures/environmentMaps/4/px.png',
+    '/textures/environmentMaps/4/nx.png',
+    '/textures/environmentMaps/4/py.png',
+    '/textures/environmentMaps/4/ny.png',
+    '/textures/environmentMaps/4/pz.png',
+    '/textures/environmentMaps/4/nz.png',
+])
+house1.encoding = THREE.sRGBEncoding
+house2.encoding = THREE.sRGBEncoding
+house3.encoding = THREE.sRGBEncoding
+scene.background = house1
 
-debugObject.envMapIntensity = 2.5
-gui.add(debugObject, 'envMapIntensity').min(0).max(10).step(0.001).onChange(updateAllMaterials)
-
-/**
- * Models
- */
-// gltfLoader.load('/models/boat.glb', (gltf) => {
-//     // gltf.scene.scale.set(0.3, 0.3, 0.3)
-//     gltf.scene.position.set(-3.5, -2, 0)
-//     gltf.scene.rotation.y = 1.4
-//     scene.add(gltf.scene)
-//     console.log('====================================')
-//     console.log(gltf.scene)
-//     console.log('====================================')
-
-//     gui.add(gltf.scene.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.001).name('rotation')
-//     gui.add(gltf.scene.position, 'x').min(-5).max(5).step(0.001).name('posX')
-//     gui.add(gltf.scene.position, 'y').min(-5).max(5).step(0.001).name('posY')
-//     gui.add(gltf.scene.position, 'z').min(-5).max(5).step(0.001).name('posZ')
-//     updateAllMaterials()
-// })
+gui.add(scene, 'background', {
+    house1,
+    house2,
+    house3,
+})
 
 /**
  * Lights
  */
-const directionalLight = new THREE.DirectionalLight('#ffffff', 10)
-directionalLight.position.set(0.25, 3, -2.25)
-directionalLight.castShadow = true
-directionalLight.shadow.camera.far = 15
-directionalLight.shadow.mapSize.set(1024, 1024)
-directionalLight.shadow.normalBias = 0.015
-scene.add(directionalLight)
+// const directionalLight = new THREE.DirectionalLight('#ffffff', 10)
+// directionalLight.position.set(0.25, 3, -2.25)
+// directionalLight.castShadow = true
+// directionalLight.shadow.camera.far = 15
+// directionalLight.shadow.mapSize.set(1024, 1024)
+// directionalLight.shadow.normalBias = 0.015
+// scene.add(directionalLight)
 
-// const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
-// scene.add(directionalLightCameraHelper)
-
-gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
-gui.add(directionalLight.position, 'x').min(-5).max(5).step(0.001).name('lightX')
-gui.add(directionalLight.position, 'y').min(-5).max(5).step(0.001).name('lightY')
-gui.add(directionalLight.position, 'z').min(-5).max(5).step(0.001).name('lightZ')
-gui.add(directionalLight.shadow, 'normalBias').min(0).max(0.1).step(0.0001)
-
-const spotLight = new THREE.PointLight('#ffffff', 10)
-spotLight.position.set(0, 1.2, 0.6)
-gui.add(spotLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
-gui.add(spotLight.position, 'x').min(-5).max(5).step(0.001).name('lightX')
-gui.add(spotLight.position, 'y').min(-5).max(5).step(0.001).name('lightY')
-gui.add(spotLight.position, 'z').min(-5).max(5).step(0.001).name('lightZ')
-scene.add(spotLight)
+// gui.add(directionalLight, 'intensity').min(0).max(10).step(0.001).name('lightIntensity')
+// gui.add(directionalLight.position, 'x').min(-5).max(5).step(0.001).name('lightX')
+// gui.add(directionalLight.position, 'y').min(-5).max(5).step(0.001).name('lightY')
+// gui.add(directionalLight.position, 'z').min(-5).max(5).step(0.001).name('lightZ')
+// gui.add(directionalLight.shadow, 'normalBias').min(0).max(0.1).step(0.0001)
 
 /**
  * Sizes
@@ -137,6 +127,7 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.enableZoom = false
+controls.rotateSpeed = 0.5
 
 /**
  * Renderer
@@ -147,21 +138,20 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.physicallyCorrectLights = true
+// renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.NoToneMapping
-renderer.toneMappingExposure = 0.3
-renderer.shadowMap.enabled = true
-renderer.shadowMap.type = THREE.PCFShadowMap
+// renderer.shadowMap.enabled = true
+// renderer.shadowMap.type = THREE.PCFShadowMap
 
-gui.add(renderer, 'toneMappingExposure').min(0).max(10).step(0.001)
-gui.add(renderer, 'toneMapping', {
-    No: THREE.NoToneMapping,
-    Linear: THREE.LinearToneMapping,
-    Reinhard: THREE.ReinhardToneMapping,
-    Cineon: THREE.CineonToneMapping,
-    ACESFilmic: THREE.ACESFilmicToneMapping,
-})
+// gui.add(renderer, 'toneMappingExposure').min(0).max(10).step(0.001)
+// gui.add(renderer, 'toneMapping', {
+//     No: THREE.NoToneMapping,
+//     Linear: THREE.LinearToneMapping,
+//     Reinhard: THREE.ReinhardToneMapping,
+//     Cineon: THREE.CineonToneMapping,
+//     ACESFilmic: THREE.ACESFilmicToneMapping,
+// })
 
 /**
  * Animate
