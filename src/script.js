@@ -84,7 +84,7 @@ gui.add(scene, 'background', {
     room2,
     room3,
     outside: room4,
-})
+}).name('House')
 
 /**
  * Lights
