@@ -58,12 +58,12 @@ const room2 = cubeTextureLoader.load([
     '/textures/environmentMaps/5/nz.png',
 ])
 const room3 = cubeTextureLoader.load([
-    '/textures/environmentMaps/4/px.png',
-    '/textures/environmentMaps/4/nx.png',
-    '/textures/environmentMaps/4/py.png',
-    '/textures/environmentMaps/4/ny.png',
-    '/textures/environmentMaps/4/pz.png',
-    '/textures/environmentMaps/4/nz.png',
+    '/textures/environmentMaps/6/px.png',
+    '/textures/environmentMaps/6/nx.png',
+    '/textures/environmentMaps/6/py.png',
+    '/textures/environmentMaps/6/ny.png',
+    '/textures/environmentMaps/6/pz.png',
+    '/textures/environmentMaps/6/nz.png',
 ])
 const room4 = cubeTextureLoader.load([
     '/textures/environmentMaps/1/px.jpg',
@@ -72,6 +72,14 @@ const room4 = cubeTextureLoader.load([
     '/textures/environmentMaps/1/ny.jpg',
     '/textures/environmentMaps/1/pz.jpg',
     '/textures/environmentMaps/1/nz.jpg',
+])
+const room5 = cubeTextureLoader.load([
+    '/textures/environmentMaps/7/px.png',
+    '/textures/environmentMaps/7/nx.png',
+    '/textures/environmentMaps/7/py.png',
+    '/textures/environmentMaps/7/ny.png',
+    '/textures/environmentMaps/7/pz.png',
+    '/textures/environmentMaps/7/nz.png',
 ])
 room1.encoding = THREE.sRGBEncoding
 room2.encoding = THREE.sRGBEncoding
@@ -84,6 +92,7 @@ gui.add(scene, 'background', {
     room2,
     room3,
     outside: room4,
+    room5,
 }).name('House')
 
 /**
